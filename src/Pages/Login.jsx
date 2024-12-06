@@ -1,36 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState , useEffect  } from 'react';
 import './Login.css';
+import GameBoard from '../components/GameBoard';
 
-function Login(){
+function Login() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [error, setError] = useState('');
+  const [countdown, setCountdown] = useState(3); 
 
-    const [username , setUsername]= useState("");
-    const [email , setEmail]= useState("");
-    const [Password , setPassword]= useState("");
-    const [isSignedIn , setisSignedIn]= useState("");
-    const [countdown, setcountdown]= useState("3");
 
-   
-    return (
-        <div className="container">
-          <header className="header">
-            <h2> Matching Game Login</h2>
-          </header>
-    
-          <main className="login-section">
-            <form onSubmit={handleSubmit}>
-              <div className="input-form">
-                <label userInput="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={handleUsernameChange}
-                  placeholder="Enter your username"
-                />
-              </div>
+  
+  const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
-              <div className="input-form">
-              <label userInpu="email">Email</label>
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!username || !email || !password) {
+      setError('All fields are required!');
+      return;
+    }
+ 
+    setError('');
+    setIsSignedIn(true);
+  };
+  useEffect(() => {
+    let timer;
+    if (isSignedIn && countdown > 0) {
+      timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
+    }
+
+    return () => clearTimeout(timer); 
+  }, [isSignedIn, countdown]);
+
+
+  return (
+    <div className="container">
+      <header className="header">
+        <h2>Matching Game Login</h2>
+      </header>
+
+      <main className="login-section">
+        {!isSignedIn ? (
+          <form onSubmit={handleSubmit}>
+            <div className="input-form">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={handleUsernameChange}
+                placeholder="Enter your username"
+              />
+            </div>
+
+            <div className="input-form">
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
@@ -39,26 +68,30 @@ function Login(){
                 placeholder="Enter your email"
               />
             </div>
-    
-              <div className="input-form">
-                <label userInpu="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  placeholder="Enter your password"
-                />
-              </div>
-    
-             
-              {error && <p className="error-message">{error}</p>}
-    
-              <button type="submit" className="submit-button">Login</button>
-            </form>
-            <p>Welcome, {username}! You are now logged in.</p>
-          </main>
-          </div>
+
+            <div className="input-form">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="Enter your password"
+              />
+            </div>
+
+            {error && <p className="error-message">{error}</p>}
+
+            <button type="submit" className="submit-button">Login</button>
+          </form>
+        ) : countdown > 0 ? (
+          <p className="countdown-message">Starting game in {countdown}...</p>
+        ) : (
+          <GameBoard /> 
+        )}
+      </main>
+    </div>
   );
 }
+
 export default Login;

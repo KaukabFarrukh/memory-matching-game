@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <h1>Memory Matching Game</h1>
-      <GameBoard />
+      
       <Login/>
     </div>
   );
