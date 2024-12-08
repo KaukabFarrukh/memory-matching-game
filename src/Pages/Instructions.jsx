@@ -5,6 +5,7 @@ const Instructions = () => {
   return (
     <div className="instructions-container">
       <h3>Instructions</h3>
+      <h3>Find matching pairs and earn points!</h3>
       <ul>
         <li><strong>Find matching pairs and earn points!</strong></li>
         <li><strong>How to Play:</strong> When the game starts, you will see cards randomly placed on the screen. Each card has a color on its back.</li>
