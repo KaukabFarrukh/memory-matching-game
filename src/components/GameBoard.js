@@ -1,4 +1,3 @@
-// src/components/GameBoard.js
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import axios from 'axios';
@@ -11,6 +10,9 @@ const GameBoard = () => {
   const [gameOver, setGameOver] = useState(false);
   const [seconds, setSeconds] = useState(15);  // Timer starts at 15 seconds
   const [gameWon, setGameWon] = useState(false);
+
+  // Create an audio object for the correct match sound from public folder
+  const correctMatchAudio = new Audio('/assets/zapsplat_cartoon_swoosh_swipe_whoosh_snatch_003_111076.mp3');
 
   useEffect(() => {
     // Fetch image data from an API
@@ -64,6 +66,9 @@ const GameBoard = () => {
           )
         );
         setScore((prev) => prev + 1);
+
+        // Play the correct match sound
+        correctMatchAudio.play();
       }
       setTimeout(() => setFlippedCards([]), 1000); // Reset flipped cards after 1 second
     }
