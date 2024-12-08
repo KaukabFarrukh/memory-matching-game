@@ -2,26 +2,31 @@
 .card {
     width: 100px;
     height: 100px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     perspective: 1000px; /* 3D perspective for flip effect */
-    transition: transform 0.5s ease, box-shadow 0.3s ease-in-out;
+    transition: transform 0.4s ease, box-shadow 0.3s ease-in-out;
+    transform-style: preserve-3d;
+    position: relative;
+    background: #fff; /* Background color */
+    animation: cardAnimation 0.6s ease-out;
   }
   
   .card:hover {
     transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
   
   .card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
+    transition: opacity 0.3s ease-in-out;
   }
   
   .card-back,
@@ -33,29 +38,47 @@
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     backface-visibility: hidden; /* Hides the back when flipped */
   }
   
   .card-back {
-    background: linear-gradient(45deg, #6b8e23, #3b5323); /* Green gradient */
+    background: linear-gradient(45deg, #f39c12, #f1c40f); /* Green gradient */
     color: white;
     font-weight: bold;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
   }
   
   .card-front {
-    background: #f1f1f1;
+    background: #ecf0f1;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    border-radius: 8px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .card.matched {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); /* Green glow for matched cards */
+    transform: scale(1.1); /* Slightly scale up matched cards */
+    animation: matchedAnimation 0.4s ease-out; /* Animation for matched cards */
   }
   
   .card.flipped {
     transform: rotateY(180deg); /* Rotate the card when flipped */
+  }
+
+  @keyframes cardAnimation {
+    0% { opacity: 0; transform: rotateY(180deg); }
+    100% { opacity: 1; transform: rotateY(0); }
+  }
+  
+  /* Animation for matched cards */
+  @keyframes matchedAnimation {
+    0% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
   }
   
