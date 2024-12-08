@@ -1,70 +1,78 @@
-/* General Reset */
+  
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  /* Centered Layout for the Container */
-  .container {
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  /* Header Style */
-  h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  /* Form Styling */
-  form {
-    background-color: #fff;
-    padding: 30px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  form label {
-    display: block;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #444;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header {
+  background-color: #4caf50;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.login-section {
+  padding: 20px;
+}
+
+.input-form {
+  margin-bottom: 15px;
+}
+
+.input-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.input-form input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+  .submit-button {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: #f9f9f9;
-  }
-  
-  input:focus {
-    outline: none;
-    border-color: #4CAF50;
-    background-color: #fff;
-  }
-  
-  /* Login Button */
-  button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #4caf50;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -72,7 +80,13 @@ body {
     transition: background-color 0.3s;
   }
   
-  button[type="submit"]:hover {
+  .submit-button:hover {
     background-color: #45a049;
   }
   
+  .countdown-message {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #555;
+    margin-top: 20px;
+  }

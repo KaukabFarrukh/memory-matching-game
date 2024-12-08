@@ -4,10 +4,10 @@
 .game-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    gap: 15px;
+    gap: 10px;
     margin: 20px auto;
     width: 90%;
-    max-width: 700%;
+    max-width: 700px;
     text-align: center;
     padding: 20px;
     border-radius: 15px;
