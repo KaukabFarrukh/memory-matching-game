@@ -1,14 +1,14 @@
-/* src/styles/App.css */
 .App {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  padding: 15px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #2b0000;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
