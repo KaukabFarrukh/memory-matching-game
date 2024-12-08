@@ -40,9 +40,7 @@ function Login() {
 
   return (
     <div className="container">
-      <header className="header">
-        <h2>Matching Game Login</h2>
-      </header>
+      
 
       <main className="login-section">
         {!isSignedIn ? (
