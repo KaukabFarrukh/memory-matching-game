@@ -1,6 +1,7 @@
 import React, { useState , useEffect  } from 'react';
 import './Login.css';
 import GameBoard from '../components/GameBoard';
+import InstructionsModal from '../components/InstructionsModal';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -9,6 +10,7 @@ function Login() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [error, setError] = useState('');
   const [countdown, setCountdown] = useState(3); 
+  const [showInstructions, setShowInstructions] = useState(false);
 
 
   
@@ -32,10 +34,17 @@ function Login() {
     let timer;
     if (isSignedIn && countdown > 0) {
       timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
+    } else if (isSignedIn && countdown === 0) {
+      setShowInstructions(true); // Show the instructions modal
     }
 
     return () => clearTimeout(timer); 
   }, [isSignedIn, countdown]);
+
+  // Close the instructions modal
+  const closeInstructions = () => {
+    setShowInstructions(false); // Hide the modal
+  };
 
 
   return (
@@ -86,6 +95,8 @@ function Login() {
           </form>
         ) : countdown > 0 ? (
           <p className="countdown-message">Starting game in {countdown}...</p>
+        ) :  showInstructions ? (
+          <InstructionsModal onClose={closeInstructions} />
         ) : (
           <GameBoard /> 
         )}
