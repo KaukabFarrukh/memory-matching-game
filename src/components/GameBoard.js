@@ -8,6 +8,9 @@ const GameBoard = () => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [seconds, setSeconds] = useState(15);  // Timer starts at 15 seconds
+  const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
     // Fetch image data from an API
@@ -27,8 +30,26 @@ const GameBoard = () => {
       });
   }, []);
 
+  useEffect(() => {
+    let interval;
+    if (!gameOver && !gameWon) {
+      // Start the countdown from 15 seconds
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => {
+          if (prevSeconds === 1) {
+            clearInterval(interval);  // Stop the timer when it hits 0
+            setGameOver(true);  // Game over if time is up
+          }
+          return prevSeconds - 1;
+        });
+      }, 1000);  // Update every second
+    }
+
+    return () => clearInterval(interval);  // Cleanup the interval when component unmounts
+  }, [gameOver, gameWon]);
+
   const handleFlip = (card) => {
-    if (flippedCards.length < 2 && !flippedCards.includes(card)) {
+    if (flippedCards.length < 2 && !flippedCards.includes(card) && !card.matched) {
       setFlippedCards((prev) => [...prev, card]);
     }
   };
@@ -48,6 +69,37 @@ const GameBoard = () => {
     }
   }, [flippedCards]);
 
+  // Check if game is over (when all cards are matched)
+  useEffect(() => {
+    if (cards.every(card => card.matched)) {
+      setGameWon(true);  // Mark the game as won
+      setGameOver(true);  // Stop the game
+    }
+  }, [cards]);
+
+  const restartGame = () => {
+    setScore(0);
+    setSeconds(15);  // Reset timer to 15 seconds
+    setGameOver(false);
+    setGameWon(false);
+    setFlippedCards([]);
+    // Fetch new cards again and reset the game state
+    axios.get('https://jsonplaceholder.typicode.com/photos?_limit=4')
+      .then(response => {
+        const imageUrls = response.data.map(item => item.url);
+        const cardData = imageUrls.map((url) => ({
+          img: url,
+          matched: false,
+        }));
+
+        const shuffledCards = [...cardData, ...cardData].sort(() => Math.random() - 0.5);
+        setCards(shuffledCards.map((card, index) => ({ ...card, id: index })));
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
   return (
     <div>
       <div className="game-board">
@@ -61,6 +113,18 @@ const GameBoard = () => {
         ))}
       </div>
       <p>Score: {score}</p>
+      <p>Time: {seconds} seconds</p>
+
+      {gameOver && (
+        <div>
+          {gameWon ? (
+            <h2>You Win! 🎉</h2>
+          ) : (
+            <h2>Game Over! Time's Up!</h2>
+          )}
+          <button onClick={restartGame}>Start Again</button>
+        </div>
+      )}
     </div>
   );
 };

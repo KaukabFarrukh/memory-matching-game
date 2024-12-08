@@ -37,6 +37,7 @@
         height: 100%;
         background: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwMTYtYy0wOF8xLWtzaDZtemEzLmpwZw.jpg') no-repeat center center ;
         background-size: cover;
+        animation: gradientAnimation 10s ease-in-out infinite;
         
       }
       
@@ -59,6 +60,27 @@
   }
   
   /* Styled score area */
+  .score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: #2d0000;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Light glow */
+  }
+
+  /* Timer style*/
+  .timer {
+    font-size: 1.5rem;
+    color: #2d0000;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Light glow */
+  }  
+
   p {
     font-size: 1.5rem;
     color: #2d0000;
