@@ -4,10 +4,10 @@
 .game-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    gap: 10px;
+    gap: 15px;
     margin: 20px auto;
     width: 90%;
-    max-width: 700px;
+    max-width: 700%;
     text-align: center;
     padding: 20px;
     border-radius: 15px;
@@ -53,7 +53,8 @@
     font-size: 3rem;
     color: #fff;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
+    margin-bottom: 15px;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Fun glowing effect */
     font-family: 'Comic Sans MS', cursive, sans-serif;
   }
@@ -64,13 +65,14 @@
     color: #2d0000;
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 0;
     font-weight: bold;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Light glow */
   }
   
   /* Card hover and flip animations */
   .card {
-    width: 80px;
+    width: 100px;
     height: 100px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

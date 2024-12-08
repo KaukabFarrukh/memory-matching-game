@@ -55,7 +55,8 @@ body {
   box-sizing: border-box;
   transition: border-color 0.3s;
 }
-
+.input-form input[type="email"] { background-color:#e4e3e3b1;;
+}
 .input-form input:focus {
   border-color: #4caf50;
   outline: none;
