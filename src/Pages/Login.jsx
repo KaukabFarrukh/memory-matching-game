@@ -1,6 +1,7 @@
-import React, { useState , useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import GameBoard from '../components/GameBoard';
+import InstructionsModal from '../components/InstructionsModal';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -9,14 +10,15 @@ function Login() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [error, setError] = useState('');
   const [countdown, setCountdown] = useState(3); 
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [startCountdown, setStartCountdown] = useState(false); // New state to trigger countdown
 
-
-  
+  // Input change handlers
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
- 
+  // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -24,43 +26,33 @@ function Login() {
       setError('All fields are required!');
       return;
     }
- 
+
     setError('');
     setIsSignedIn(true);
+    setShowInstructions(true); // Show the instructions modal after successful login
   };
+
+  // Countdown effect
   useEffect(() => {
     let timer;
-    if (isSignedIn && countdown > 0) {
+    if (startCountdown && countdown > 0) {
       timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
     }
 
     return () => clearTimeout(timer); 
-  }, [isSignedIn, countdown]);
+  }, [startCountdown, countdown]);
 
+  // Close instructions and start countdown
+  const closeInstructions = () => {
+    setShowInstructions(false); // Hide the instructions modal
+    setStartCountdown(true);    // Start the countdown
+  };
 
   return (
     <div className="container">
-      <header className="header">
-        <h2>Matching Game Login</h2>
-      </header>
+      
 
       <main className="login-section">
-        {/* Instructions Section */}
-        {!isSignedIn && (
-          <section className="instructions">
-            <h2>Instructions</h2>
-            <h3>Find matching pairs and earn points!</h3>
-            <ul>
-              <li><strong>How to Play:</strong> When the game starts, you will see cards randomly placed on the screen. Each card has a color on its back.</li>
-              <li><strong>Match the cards:</strong> If the cards you select match, they will remain open, and you earn points.</li>
-              <li><strong>Mismatch:</strong> If the cards do not match, they will be closed again.</li>
-              <li><strong>Time Limit:</strong> You have only 15 seconds to complete all the matches!</li>
-              <li><strong>Tips:</strong> Use your memory to remember where you saw the cards. Be quick and careful!</li>
-              <li><strong>Ready?</strong> After entering your details, click the Login button to start matching.</li>
-            </ul>
-          </section>
-        )}
-         {/* Login Form */}
         {!isSignedIn ? (
           <form onSubmit={handleSubmit}>
             <div className="input-form">
@@ -100,10 +92,12 @@ function Login() {
 
             <button type="submit" className="submit-button">Login</button>
           </form>
+        ) : showInstructions ? (
+          <InstructionsModal onClose={closeInstructions} />
         ) : countdown > 0 ? (
           <p className="countdown-message">Starting game in {countdown}...</p>
         ) : (
-          <GameBoard /> 
+          <GameBoard />
         )}
       </main>
     </div>
