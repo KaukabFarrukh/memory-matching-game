@@ -1,61 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import axios from 'axios';
-import '../styles/GameBoard.css';  // Styles specific to the game board
+import '../styles/GameBoard.css'; // Styles specific to the game board
 
 const GameBoard = () => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [seconds, setSeconds] = useState(15);  // Timer starts at 15 seconds
+  const [seconds, setSeconds] = useState(15); // Timer starts at 15 seconds
   const [gameWon, setGameWon] = useState(false);
 
-  // Create an audio object for the correct match sound from public folder
+  // Audio object for the correct match sound
   const correctMatchAudio = new Audio('/assets/zapsplat_cartoon_swoosh_swipe_whoosh_snatch_003_111076.mp3');
 
-  useEffect(() => {
-    // Fetch image data from an API
-    axios.get('https://jsonplaceholder.typicode.com/photos?_limit=4')
-      .then(response => {
-        const imageUrls = response.data.map(item => item.url);  // Extract image URLs from API response
-        const cardData = imageUrls.map((url) => ({
-          img: url,  // Use the URL as the image source for the card
-          matched: false,
-        }));
+  // Fetch cards from API and initialize game
+  const fetchCards = async () => {
+    try {
+      const response = await axios.get('https://jsonplaceholder.typicode.com/photos?_limit=4');
+      const imageUrls = response.data.map(item => item.url);
+      const cardData = imageUrls.map((url) => ({
+        img: url,
+        matched: false,
+      }));
 
-        const shuffledCards = [...cardData, ...cardData].sort(() => Math.random() - 0.5); // Shuffle cards
-        setCards(shuffledCards.map((card, index) => ({ ...card, id: index })));
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+      const shuffledCards = [...cardData, ...cardData].sort(() => Math.random() - 0.5);
+      setCards(shuffledCards.map((card, index) => ({ ...card, id: index })));
+    } catch (error) {
+      console.error('Error fetching cards:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCards();
   }, []);
 
+  // Timer logic
   useEffect(() => {
     let interval;
     if (!gameOver && !gameWon) {
-      // Start the countdown from 15 seconds
       interval = setInterval(() => {
         setSeconds((prevSeconds) => {
           if (prevSeconds === 1) {
-            clearInterval(interval);  // Stop the timer when it hits 0
-            setGameOver(true);  // Game over if time is up
+            clearInterval(interval);
+            setGameOver(true);
           }
           return prevSeconds - 1;
         });
-      }, 1000);  // Update every second
+      }, 1000);
     }
 
-    return () => clearInterval(interval);  // Cleanup the interval when component unmounts
+    return () => clearInterval(interval);
   }, [gameOver, gameWon]);
 
+  // Handle card flip
   const handleFlip = (card) => {
     if (flippedCards.length < 2 && !flippedCards.includes(card) && !card.matched) {
       setFlippedCards((prev) => [...prev, card]);
     }
   };
 
+  // Check for match
   useEffect(() => {
     if (flippedCards.length === 2) {
       const [first, second] = flippedCards;
@@ -67,42 +72,29 @@ const GameBoard = () => {
         );
         setScore((prev) => prev + 1);
 
-        // Play the correct match sound
+        // Play correct match sound
         correctMatchAudio.play();
       }
-      setTimeout(() => setFlippedCards([]), 1000); // Reset flipped cards after 1 second
+      setTimeout(() => setFlippedCards([]), 1000);
     }
   }, [flippedCards]);
 
-  // Check if game is over (when all cards are matched)
+  // Check if game is won
   useEffect(() => {
-    if (cards.every(card => card.matched)) {
-      setGameWon(true);  // Mark the game as won
-      setGameOver(true);  // Stop the game
+    if (cards.length > 0 && cards.every(card => card.matched)) {
+      setGameWon(true);
+      setGameOver(true);
     }
   }, [cards]);
 
+  // Restart the game
   const restartGame = () => {
     setScore(0);
-    setSeconds(15);  // Reset timer to 15 seconds
+    setSeconds(15);
     setGameOver(false);
     setGameWon(false);
     setFlippedCards([]);
-    // Fetch new cards again and reset the game state
-    axios.get('https://jsonplaceholder.typicode.com/photos?_limit=4')
-      .then(response => {
-        const imageUrls = response.data.map(item => item.url);
-        const cardData = imageUrls.map((url) => ({
-          img: url,
-          matched: false,
-        }));
-
-        const shuffledCards = [...cardData, ...cardData].sort(() => Math.random() - 0.5);
-        setCards(shuffledCards.map((card, index) => ({ ...card, id: index })));
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    fetchCards();
   };
 
   return (
