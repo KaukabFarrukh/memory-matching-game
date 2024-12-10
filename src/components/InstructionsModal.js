@@ -18,7 +18,7 @@ const InstructionsModal = ({ onClose }) => {
             open, and you earn points.
           </li>
           <li>
-            Mismatch: If the cards do not match❎, they will be closed again.
+            Mismatch: If the cards do not match❌, they will be closed again.
           </li>
           <li>Time Limit⌛: You have only 15 seconds to complete all the matches!</li>
         </ul>
