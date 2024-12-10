@@ -63,20 +63,20 @@
 }
 @media (max-width: 768px) {
   .modal-content {
-    font-size: 16px; /* Reduce font size */
-    padding: 15px; /* Adjust padding */
-    max-width: 90%; /* Adjust max width */
-    max-height: 75%; /* Adjust max height */
+    font-size: 16px; 
+    padding: 15px; 
+    max-width: 90%; 
+    max-height: 75%; 
   }
 
 }
 
-/* Media Query for very small screens (e.g., devices with max width of 480px) */
+
 @media (max-width: 480px) {
   .modal-content {
-    font-size: 14px; /* Further reduce font size */
-    padding: 10px; /* Adjust padding */
-    width: 95%; /* Adjust width */
+    font-size: 14px; 
+    padding: 10px; 
+    width: 95%; 
   }
 }
 }
