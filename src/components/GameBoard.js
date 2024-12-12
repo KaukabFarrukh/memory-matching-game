@@ -16,6 +16,7 @@ const GameBoard = () => {
 
   // Audio object for the correct match sound
   const correctMatchAudio = new Audio('/assets/zapsplat_cartoon_swoosh_swipe_whoosh_snatch_003_111076.mp3');
+  const gameOverAudio = new Audio('/assets/gameover (2).mp3');
 
   // Retrieve username from localStorage
   const username = localStorage.getItem('username') || 'Player';
@@ -60,6 +61,7 @@ const GameBoard = () => {
           if (prevSeconds === 1) {
             clearInterval(interval);
             setGameOver(true);
+            gameOverAudio.play(); 
           }
           return prevSeconds - 1;
         });
