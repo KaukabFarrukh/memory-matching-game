@@ -18,6 +18,13 @@ function Login() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
+   // Save credentials to localStorage
+   const storeCredentials = () => {
+    localStorage.setItem('username', username);
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+  };
+
   // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +37,7 @@ function Login() {
     setError('');
     setIsSignedIn(true);
     setShowInstructions(true); // Show the instructions modal after successful login
+    storeCredentials(); // Store user credentials upon successful login
   };
 
   // Countdown effect

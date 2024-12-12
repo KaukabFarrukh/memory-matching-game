@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import axios from 'axios';
-import '../styles/GameBoard.css'; // Styles specific to the game board
+import '../styles/GameBoard.css'; 
 
 const GameBoard = () => {
   const [cards, setCards] = useState([]);
@@ -10,24 +10,40 @@ const GameBoard = () => {
   const [gameOver, setGameOver] = useState(false);
   const [seconds, setSeconds] = useState(15); // Timer starts at 15 seconds
   const [gameWon, setGameWon] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
 
   // Audio object for the correct match sound
   const correctMatchAudio = new Audio('/assets/zapsplat_cartoon_swoosh_swipe_whoosh_snatch_003_111076.mp3');
 
+  // Retrieve username from localStorage
+  const username = localStorage.getItem('username') || 'Player';
+
   // Fetch cards from API and initialize game
   const fetchCards = async () => {
     try {
+      setLoading(true); // Set loading state
       const response = await axios.get('https://jsonplaceholder.typicode.com/photos?_limit=4');
-      const imageUrls = response.data.map(item => item.url);
+
+      const imageUrls = response.data.map(item => item.thumbnailUrl);
+      
+      //Card Data
       const cardData = imageUrls.map((url) => ({
         img: url,
         matched: false,
       }));
 
+      // Duplicate and shuffle the cards
       const shuffledCards = [...cardData, ...cardData].sort(() => Math.random() - 0.5);
+      
+      // Set the shuffled cards with IDs
       setCards(shuffledCards.map((card, index) => ({ ...card, id: index })));
     } catch (error) {
       console.error('Error fetching cards:', error);
+      setError('Failed to load cards. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,17 +113,27 @@ const GameBoard = () => {
     fetchCards();
   };
 
-  return (
+  return  (
     <div>
+      <h1>Welcome, {username}!</h1>
       <div className="game-board">
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-            handleFlip={handleFlip}
-            isFlipped={flippedCards.includes(card) || card.matched}
-          />
-        ))}
+      {loading ? (
+          <p>Loading cards...</p>
+        ) : error ? (
+          <div>
+            <p>{error}</p>
+            <button onClick={fetchCards}>Retry</button>
+          </div>
+        ) : (
+          cards.map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              handleFlip={handleFlip}
+              isFlipped={flippedCards.includes(card) || card.matched}
+            />
+          ))
+        )}
       </div>
       <p>Score: {score}</p>
       <p>Time: {seconds} seconds</p>
