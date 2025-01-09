@@ -17,7 +17,7 @@
 .modal-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   background: #ffa07a; 
@@ -32,6 +32,18 @@
   font-weight: 16px;
   animation: fadeIn 0.4s ease-in-out; 
   margin: 20px;
+  box-sizing: border-box;
+}
+
+.modal-content h1 {
+  margin: 0 0 15px; /* Add spacing below the heading */
+  font-size: 24px;
+  text-align: center;
+}
+
+.modal-content p,
+.modal-content ul {
+  margin: 10px 0;
 }
 
 .modal-close-button {
