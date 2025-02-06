@@ -15,8 +15,10 @@ const GameBoard = () => {
   const [error, setError] = useState("");
   const [dimensions, setDimensions] = useState({ 
     width: window.innerWidth, 
-    height: document.documentElement.scrollHeight
+    height: document.documentElement.scrollHeight 
   });
+   
+  const username = localStorage.getItem("username") || "Player";
 
   const correctMatchAudio = new Audio("/assets/zapsplat_cartoon_swoosh_swipe_whoosh_snatch_003_111076.mp3");
   const gameOverAudio = new Audio("/assets/gameover (2).mp3");
@@ -111,11 +113,12 @@ const GameBoard = () => {
     fetchCards();
   };
 
+
   return (
     <div className="game-container">
       {gameWon && <Confetti width={dimensions.width} height={dimensions.height} />}
       <header className="game-header">
-        <h1>Welcome, Player!</h1>
+        <h1>Welcome, {username}!</h1>
         <div className="game-info">
           <p>Score: <span>{score}</span></p>
           <p>Time: <span>{seconds} seconds</span></p>
