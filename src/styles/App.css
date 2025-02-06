@@ -1,14 +1,15 @@
 .App {
   text-align: center;
   font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
   padding: 15px;
   width: 100%;
+  background: transparent; /* Ensuring no background color */
+  color: #ffffff;
 }
 
 h1 {
   font-size: 2.5rem;
-  color: #2b0000;
+  color: #64c8ef;
   margin-bottom: 30px;
   margin-top: 0;
 }

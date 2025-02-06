@@ -16,6 +16,7 @@
   transition: background 0.5s ease;
 }
 
+/* Info Panel */
 .game-info {
   display: flex;
   justify-content: space-around;
@@ -25,7 +26,6 @@
   color: #fff;
   font-weight: bold;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  position: relative;
 }
 
 .game-info p {
@@ -92,36 +92,11 @@ h1 {
   font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-/* Score Area Styling */
-.score-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px auto;
-  font-size: 1.5rem;
-  color: #fff;
-  font-weight: bold;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-/* Timer Styling */
-.timer {
-  font-size: 1.5rem;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-/* Instructions Styling */
-p {
-  font-size: 1.2rem;
-  color: #fff;
-  text-align: center;
-  margin: 10px 0;
-  font-weight: bold;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: larger;
+  font-weight: 200;
+  color: black;
 }
 
 /* Card Styling */
@@ -137,17 +112,21 @@ p {
   perspective: 1000px;
   position: relative;
   transition: transform 0.5s ease, box-shadow 0.3s ease-in-out;
+  background: rgba(255, 255, 255, 0.2); /* Slight transparency for blending */
 }
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
+/* Flipped cards with gradient animation */
 .card.flipped {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 150, 0.8),
+    rgba(0, 204, 255, 0.8)
+  );
+  animation: gradientAnimation 2s infinite;
   transform: rotateY(180deg);
 }
 
+/* Image Display for Cards */
 .card img {
   width: 100%;
   height: 100%;
@@ -155,33 +134,33 @@ p {
   border-radius: 8px;
 }
 
-.card-back,
-.card-front {
+/* Back of the card */
+.card-back {
   width: 100%;
   height: 100%;
   position: absolute;
+  backface-visibility: hidden;
+  background: linear-gradient(45deg, #f39c12, #f1c40f);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  backface-visibility: hidden;
 }
 
-.card-back {
-  background: linear-gradient(45deg, #f39c12, #f1c40f);
-  color: #fff;
-  font-weight: bold;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
-}
-
+/* Front of the card */
 .card-front {
-  background: #ecf0f1;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
 }
 
+/* Matched cards styling */
 .card.matched {
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
   transform: scale(1.1);
+  background: linear-gradient(45deg, #00ff00, #00cc00);
 }
 
 /* Enhanced "Start Again" Button Styling */
@@ -218,4 +197,3 @@ p {
 .restart-btn:active {
   transform: scale(0.98);
 }
-

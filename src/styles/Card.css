@@ -1,19 +1,16 @@
 /* src/styles/Card.css */
 .card {
-    width: 100px;
-    height: 100px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    perspective: 1000px; /* 3D perspective for flip effect */
-    transition: transform 0.4s ease, box-shadow 0.3s ease-in-out;
-    transform-style: preserve-3d;
-    position: relative;
-    background: #fff; /* Background color */
-    animation: cardAnimation 0.6s ease-out;
+  width: 100px;
+  height: 150px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f0f0f0; /* Default background color */
+  transition: transform 0.3s ease-in-out;
+    
   }
   
   .card:hover {
@@ -26,7 +23,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
-    transition: opacity 0.3s ease-in-out;
+    display: none;
   }
   
   .card-back,
@@ -67,7 +64,11 @@
   }
   
   .card.flipped {
-    transform: rotateY(180deg); /* Rotate the card when flipped */
+    background-color: #ffffff;
+  }
+
+  .card.flipped img {
+    display: block; /* Show the image when flipped */
   }
 
   @keyframes cardAnimation {
