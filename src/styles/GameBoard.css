@@ -16,6 +16,21 @@
   transition: background 0.5s ease;
 }
 
+@media (max-width: 600px) {
+  .game-board {
+    grid-template-columns: repeat(3, 1fr); /* Fit 3 columns on smaller screens */
+  }
+  .game-info p, .game-info p span {
+    font-size: 1.2rem; /* Smaller font size for better readability */
+  }
+}
+
+@media (max-width: 400px) {
+  .game-board {
+    grid-template-columns: repeat(2, 1fr); /* Fit 2 columns on very small screens */
+  }
+}
+
 /* Info Panel */
 .game-info {
   display: flex;
@@ -50,19 +65,6 @@
   color: #fff;
   font-weight: bold;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-/* Mobile responsiveness for the grid */
-@media (max-width: 600px) {
-  .game-board {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns on small screens */
-  }
-}
-
-@media (max-width: 400px) {
-  .game-board {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on extra small screens */
-  }
 }
 
 /* Page Background Styling */

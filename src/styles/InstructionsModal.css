@@ -89,6 +89,7 @@
     font-size: 14px; 
     padding: 10px; 
     width: 95%; 
+    max-height: 90%;
   }
 }
 }
