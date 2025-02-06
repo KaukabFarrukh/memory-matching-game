@@ -11,7 +11,7 @@ const InstructionsModal = ({ onClose }) => {
         <ul>
           <li>
             When the game starts, you will see cards randomly placed on the
-            screen. Each card has a color on its back.
+            screen. Each card has some image on its back.
           </li>
           <li>
             Match the cards: If the cards you select match✅, they will remain
@@ -20,7 +20,7 @@ const InstructionsModal = ({ onClose }) => {
           <li>
             Mismatch: If the cards do not match❌, they will be closed again.
           </li>
-          <li>Time Limit⌛: You have only 15 seconds to complete all the matches!</li>
+          <li>Time Limit⌛: You have 60 seconds to complete all the matches!</li>
         </ul>
         <p>Use your memory to remember where you saw the cards. Be quick and careful!</p>
         <p>Ready?🎬Close the instructions and start matching!</p>
